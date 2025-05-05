@@ -58,7 +58,23 @@ void dfs2(vector<int> adj[], int start, int n) // iterative
         }
     }
 }
+void dls(vector<int> adj[], int node, int limit, int vis[])
+{
+    if (limit < 0)
+        return;
 
+    cout << node << " ";
+    vis[node] = 1;
+
+    for (int i = 0; i < adj[node].size(); i++)
+    {
+        int next = adj[node][i];
+        if (!vis[next])
+        {
+            dls(adj, next, limit - 1, vis);
+        }
+    }
+}
 int main()
 {
 
@@ -91,6 +107,14 @@ int main()
     dfs(adj, vis, 1);
     cout << endl;
     dfs2(adj, 1, n);
+    cout << endl;
+    int vis2[n + 1] = {0};
+    cout << "enter depth limit" << endl;
+    int limit;
+    cin >> limit;
+    cout << "depth limited search" << endl;
+    dls(adj, 1, limit, vis2);
+
     return 0;
 }
 // 2 1 1 3 3 4 2 4 2 5 4 5
